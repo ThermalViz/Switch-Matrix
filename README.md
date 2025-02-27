@@ -9,7 +9,7 @@ Do not use digitalwrite() unless YOU KNOW WHAT YOU'RE DOING.
 manual digitalWrite() can cause problems when power is supplied
 to the relays. At worst, the board or DUT can break.
 
-#Commands:
+# Commands:
 ### RLAY [Pin] [1/0]
 manually sets a relay do not use this command unless you know what you're doing!.
 Ex: RLAY A0 1   | sets relay on A0 to HIGH
