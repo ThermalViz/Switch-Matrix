@@ -32,10 +32,10 @@
 //            Ex: NINV NI_IN1 1 1    | sets the non-inverting input to the 3rd option and is grounded.
 //
 //        - VOUT [Key] - Sets the output if to GND or to the feedback resistor.
-//            Ex: VOUT 0      | sets the output to the 1st option which is to ground.
+//            Ex: VOUT OUT_GND      | sets the output to ground.
 //
 //        - MEAS [Key] - Sets the instrument measuring to either the DMM or the oscilloscope.
-//            Ex: MEAS 1      | sets the measurement tool to the 2nd option which is the oscilloscope.
+//            Ex: MEAS SCOPE      | sets the measurement tool to the oscilloscope.
 //
 //        - ALL0 - Sets all relays OFF.
 //
