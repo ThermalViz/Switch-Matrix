@@ -26,34 +26,32 @@ to the relays. At worst, the board or DUT can break.
 </tr>
 <tr>
   <td>
-    | Keys |
-    | --- |
-    | DUT_1 |
-    | DUT_2 |
-    | DUT_3 |
-    | DUT_4 |
+    DUT_1 <br>
+    DUT_2 <br>
+    DUT_3 <br>
+    DUT_4 
   </td>
   <td>
-    | I_IN0 |
-    | I_IN1 |
-    | I_IN2 |
-    | I_GND |
+    I_IN0 <br>
+    I_IN1 <br> 
+    I_IN2 <br> 
+    I_GND 
   </td>
   <td>
-    | NI_IN0 |
-    | NI_IN1 |
-    | NI_IN2 |
-    | NI_GND |
+    NI_IN0 <br>
+    NI_IN1 <br>
+    NI_IN2 <br>
+    NI_GND
   </td>
   <td>
-    | OUT_GND |
-    | OUT_FEEDBACK |
-    | DMM |
-    | SCOPE |
+    OUT_GND <br>
+    OUT_FEEDBACK <br>
+    DMM <br>
+    SCOPE
   </td>
   <td>
-    | AC_MODE |
-    | DC_MODE |
+    AC_MODE <br>
+    DC_MODE
   </td>
 </tr>
 </table>
