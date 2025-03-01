@@ -11,9 +11,13 @@ to the relays. At worst, the board or DUT can break.
 
 # Keymap:
 DUT_1 | I_IN0 | NI_IN0 | OUT_GND | AC_MODE
+--- | --- | --- | --- | ---
 DUT_2 | I_IN1 | NI_IN1 | OUT_FEEDBACK | DC_MODE
-DUT_3 | I_IN2 | NI_IN2 | DMM | 
-DUT_4 | I_GND | NI_GND | SCOPE | 
+--- | --- | --- | --- | ---
+DUT_3 | I_IN2 | NI_IN2 | DMM 
+--- | --- | --- | --- | ---
+DUT_4 | I_GND | NI_GND | SCOPE 
+--- | --- | --- | --- | ---
 
 # Commands:
 ### RLAY [Key] [1/0]
