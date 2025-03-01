@@ -40,7 +40,7 @@ to the relays. At worst, the board or DUT can break.
   <td>
     OUT_GND <br> <br>
     OUT_FEEDBACK <br> <br>
-    DMM <br>
+    DMM <br> <br>
     SCOPE
   </td>
   <td>
