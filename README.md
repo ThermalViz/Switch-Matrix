@@ -9,13 +9,6 @@ Do not use digitalwrite() unless YOU KNOW WHAT YOU'RE DOING.
 manual digitalWrite() can cause problems when power is supplied
 to the relays. At worst, the board or DUT can break.
 
-| DUT | Inverting | Non-Inverting | Out | Mode |
-| --- | --- | --- | --- | --- | 
-| DUT_1 | I_IN0 | NI_IN0 | OUT_GND | AC_MODE |
-| DUT_2 | I_IN1 | NI_IN1 | OUT_FEEDBACK | DC_MODE |
-| DUT_3 | I_IN2 | NI_IN2 | DMM |
-| DUT_4 | I_GND | NI_GND | SCOPE |
-
 <table>
 <tr>
   <th>DUT</th>
@@ -26,31 +19,31 @@ to the relays. At worst, the board or DUT can break.
 </tr>
 <tr>
   <td>
-    DUT_1 <br>
-    DUT_2 <br>
-    DUT_3 <br>
+    DUT_1 <br> <br>
+    DUT_2 <br> <br>
+    DUT_3 <br> <br>
     DUT_4 
   </td>
   <td>
-    I_IN0 <br>
-    I_IN1 <br> 
-    I_IN2 <br> 
+    I_IN0 <br> <br>
+    I_IN1 <br>  <br>
+    I_IN2 <br>  <br>
     I_GND 
   </td>
   <td>
-    NI_IN0 <br>
-    NI_IN1 <br>
-    NI_IN2 <br>
+    NI_IN0 <br> <br>
+    NI_IN1 <br> <br>
+    NI_IN2 <br> <br>
     NI_GND
   </td>
   <td>
-    OUT_GND <br>
-    OUT_FEEDBACK <br>
+    OUT_GND <br> <br>
+    OUT_FEEDBACK <br> <br>
     DMM <br>
     SCOPE
   </td>
   <td>
-    AC_MODE <br>
+    AC_MODE <br> <br>
     DC_MODE
   </td>
 </tr>
