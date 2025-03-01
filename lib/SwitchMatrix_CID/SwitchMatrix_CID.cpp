@@ -3,6 +3,26 @@
 
 void SWMTRX::begin()
 {
+    pinMode(DUT_1, OUTPUT);
+    pinMode(DUT_2, OUTPUT);
+    pinMode(DUT_3, OUTPUT);
+    pinMode(DUT_4, OUTPUT);
+
+    pinMode(I_IN0, OUTPUT);
+    pinMode(I_IN1, OUTPUT);
+    pinMode(I_IN2, OUTPUT);
+    pinMode(I_GND, OUTPUT);
+
+    pinMode(NI_IN0, OUTPUT);
+    pinMode(NI_IN1, OUTPUT);
+    pinMode(NI_IN2, OUTPUT);
+    pinMode(NI_GND, OUTPUT);
+
+    pinMode(OUT_GND, OUTPUT);
+    pinMode(OUT_FEEDBACK, OUTPUT);
+
+    pinMode(DMM, OUTPUT);
+    pinMode(SCOPE, OUTPUT);
     resetAll();
 }
 
@@ -115,6 +135,7 @@ void SWMTRX::setOutput(int output)
 void SWMTRX::toggleRelay(int index, int status)
 {
     digitalWrite(index, status);
+    Serial.println("Relay " + String(index) + " toggled to " + String(status));
 }
 
 void SWMTRX::resetInverting()

@@ -58,10 +58,17 @@ void loop()
     String received = Serial.readStringUntil('\n');
     String command = received.substring(0, 4); // select the first 4 characters of command
 
-    if (command == "RLAY")
+    if (received == "WHOU")
     {
-      int relay = received.substring(5, 6).toInt();
-      int status = received.substring(7, 8).toInt();
+      Serial.println("I am main board, ready for service");
+    }
+    else if (command == "RLAY")
+    {
+      int relay_indx = received.indexOf(" ");
+      int status_indx = received.lastIndexOf(" ");
+      int relay = received.substring(relay_indx + 1, status_indx).toInt();
+      int status = received.substring(status_indx + 1, received.length() + 1).toInt();
+
       relayMux.toggleRelay(relay, status);
     }
     else if (command == "DUTS")
@@ -160,3 +167,4 @@ void loop()
       relayMux.resetAll();
     }
   }
+}
