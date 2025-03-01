@@ -79,6 +79,7 @@ void SWMTRX::setNonInverting(int input, bool ground)
 
 void SWMTRX::setDUT(int index)
 {
+    Serial.println("Setting DUT to " + String(index));
     resetDUT();
 
     switch (index)
@@ -140,12 +141,14 @@ void SWMTRX::toggleRelay(int index, int status)
 
 void SWMTRX::resetInverting()
 {
+    Serial.println("Disconnecting Inverting pins");
     digitalWrite(I_IN0, LOW);
     digitalWrite(I_IN1, LOW);
     digitalWrite(I_IN2, LOW);
 }
 void SWMTRX::resetNonInverting()
 {
+    Serial.println("Disconnecting Non-Inverting pins");
     digitalWrite(NI_IN0, LOW);
     digitalWrite(NI_IN1, LOW);
     digitalWrite(NI_IN2, LOW);
@@ -153,6 +156,7 @@ void SWMTRX::resetNonInverting()
 }
 void SWMTRX::resetDUT()
 {
+    Serial.println("Disconnecting DUT pins");
     digitalWrite(DUT_1, LOW);
     digitalWrite(DUT_2, LOW);
     digitalWrite(DUT_3, LOW);
@@ -160,16 +164,19 @@ void SWMTRX::resetDUT()
 }
 void SWMTRX::resetOut()
 {
+    Serial.println("Disconnecting Output");
     digitalWrite(OUT_GND, LOW);
     digitalWrite(OUT_FEEDBACK, LOW);
 }
 void SWMTRX::resetMeasure()
 {
+    Serial.println("Disconnecting DMM and Oscilloscope");
     digitalWrite(DMM, LOW);
     digitalWrite(SCOPE, LOW);
 }
 void SWMTRX::resetInput()
 {
+    Serial.println("Resetting all inputs");
     digitalWrite(AC_MODE, LOW);
     digitalWrite(DC_MODE, LOW);
     digitalWrite(I_GND, LOW);
@@ -178,6 +185,7 @@ void SWMTRX::resetInput()
 
 void SWMTRX::resetAll()
 {
+    Serial.println("Resetting all relays");
     digitalWrite(AC_MODE, LOW);
     digitalWrite(DC_MODE, LOW);
     digitalWrite(DUT_1, LOW);

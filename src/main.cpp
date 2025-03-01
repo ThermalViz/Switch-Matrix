@@ -89,6 +89,7 @@ void loop()
         relayMux.setDUT(DUT_4);
         break;
       default:
+        Serial.println("Invalid DUT number");
         break;
       }
     }
