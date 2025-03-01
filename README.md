@@ -16,6 +16,46 @@ to the relays. At worst, the board or DUT can break.
 | DUT_3 | I_IN2 | NI_IN2 | DMM |
 | DUT_4 | I_GND | NI_GND | SCOPE |
 
+<table>
+<tr>
+  <th>DUT</th>
+  <th>Inverting</th>
+  <th>Non-Inverting</th>
+  <th>Out</th>
+  <th>Mode</th>
+</tr>
+<tr>
+  <td>
+    | DUT_1 |
+    | DUT_2 |
+    | DUT_3 |
+    | DUT_4 |
+  </td>
+  <td>
+    | I_IN0 |
+    | I_IN1 |
+    | I_IN2 |
+    | I_GND |
+  </td>
+  <td>
+    | NI_IN0 |
+    | NI_IN1 |
+    | NI_IN2 |
+    | NI_GND |
+  </td>
+  <td>
+    | OUT_GND |
+    | OUT_FEEDBACK |
+    | DMM |
+    | SCOPE |
+  </td>
+  <td>
+    | AC_MODE |
+    | DC_MODE |
+  </td>
+</tr>
+</table>
+
 # Commands:
 ### RLAY [Key] [1/0]
 manually sets a relay do not use this command unless you know what you're doing!.
