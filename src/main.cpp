@@ -39,11 +39,13 @@
 
 #include <Arduino.h>
 #include "SwitchMatrix_CID.h"
+#include "keymap.h"
 
 #define AC 0
 #define DC 1
 
 SWMTRX relayMux;
+keymap key;
 
 void setup()
 {
@@ -64,103 +66,41 @@ void loop()
     }
     else if (command == "RLAY")
     {
-      int relay_indx = received.indexOf(" ");
-      int status_indx = received.lastIndexOf(" ");
-      int relay = received.substring(relay_indx + 1, status_indx).toInt();
-      int status = received.substring(status_indx + 1, received.length() + 1).toInt();
-
-      relayMux.toggleRelay(relay, status);
+      
     }
     else if (command == "DUTS")
     {
-      int dut = received.substring(5, 6).toInt();
-      switch (dut)
-      {
-      case 1:
-        relayMux.setDUT(DUT_1);
-        break;
-      case 2:
-        relayMux.setDUT(DUT_2);
-        break;
-      case 3:
-        relayMux.setDUT(DUT_3);
-        break;
-      case 4:
-        relayMux.setDUT(DUT_4);
-        break;
-      default:
-        break;
-      }
+      String dut = received.substring(5, received.length());
+
+      relayMux.setDUT(dut);
     }
     else if (command == "INVT")
     {
-      int index = received.substring(5, 6).toInt();
-      int gnd = (received.substring(7, 8).toInt() == 1 ? HIGH : LOW);
+      int relay_indx = received.indexOf(" ");
+      int gnd_indx = received.lastIndexOf(" ");
+      String relay = received.substring(relay_indx);
+      int gnd = received.substring(gnd + 1, received.length() + 1).toInt();
 
-      switch (index)
-      {
-      case 0:
-        relayMux.setInverting(I_IN0, gnd);
-        break;
-      case 1:
-        relayMux.setInverting(I_IN1, gnd);
-        break;
-      case 2:
-        relayMux.setInverting(I_IN2, gnd);
-        break;
-      default:
-        break;
-      }
+      relayMux.setInverting(relay, gnd);
     }
     else if (command == "NINV")
     {
-      int index = received.substring(5, 6).toInt();
-      int gnd = (received.substring(7, 8).toInt() == 1 ? HIGH : LOW);
+      int relay_indx = received.indexOf(" ");
+      int gnd_indx = received.lastIndexOf(" ");
+      String relay = received.substring(relay_indx);
+      int gnd = received.substring(gnd + 1, received.length() + 1).toInt();
 
-      switch (index)
-      {
-      case 0:
-        relayMux.setInverting(NI_IN0, gnd);
-        break;
-      case 1:
-        relayMux.setInverting(NI_IN1, gnd);
-        break;
-      case 2:
-        relayMux.setInverting(NI_IN2, gnd);
-        break;
-      default:
-        break;
-      }
+      relayMux.setNonInverting(relay, gnd);
     }
     else if (command == "VOUT")
     {
-      int index = received.substring(5, 6).toInt();
-      switch (index)
-      {
-      case 0:
-        relayMux.setOutput(OUT_GND);
-        break;
-      case 1:
-        relayMux.setOutput(OUT_FEEDBACK);
-        break;
-      default:
-        break;
-      }
+      String index = received.substring(5, received.length());
+      relayMux.setOutput(index);
     }
     else if (command == "MEAS")
     {
-      int index = received.substring(5, 6).toInt();
-      switch (index)
-      {
-      case 0:
-        relayMux.setMeasure(DMM);
-        break;
-      case 1:
-        relayMux.setMeasure(SCOPE);
-        break;
-      default:
-        break;
-      }
+      String index = received.substring(5, received.length());
+      relayMux.setMeasure(index);
     }
     else if (command == "ALL0")
     {
@@ -168,3 +108,4 @@ void loop()
     }
   }
 }
+
