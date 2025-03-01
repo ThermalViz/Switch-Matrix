@@ -26,6 +26,7 @@ to the relays. At worst, the board or DUT can break.
 </tr>
 <tr>
   <td>
+    | --- |
     | DUT_1 |
     | DUT_2 |
     | DUT_3 |
