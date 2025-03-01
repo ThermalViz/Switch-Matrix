@@ -1,5 +1,4 @@
 #include "keymap.h"
-#include <Arduino.h>
 
 int keymap::Parse(String command) {
     if(command == "AC_MODE") return AC_MODE;

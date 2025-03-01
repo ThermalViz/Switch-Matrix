@@ -1,6 +1,8 @@
 #ifndef PARSE
 #define PARSE
 
+#include <Arduino.h>
+
 #define AC_MODE 2
 #define DC_MODE 18
 

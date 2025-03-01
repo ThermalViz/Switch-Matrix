@@ -90,7 +90,7 @@ void loop()
       int relay_indx = received.indexOf(" ");
       int gnd_indx = received.lastIndexOf(" ");
       String relay = received.substring(relay_indx);
-      int gnd = received.substring(gnd + 1, received.length() + 1).toInt();
+      int gnd = received.substring(gnd_indx + 1, received.length() + 1).toInt();
 
       relayMux.setInverting(relay, gnd);
     }
@@ -99,7 +99,7 @@ void loop()
       int relay_indx = received.indexOf(" ");
       int gnd_indx = received.lastIndexOf(" ");
       String relay = received.substring(relay_indx);
-      int gnd = received.substring(gnd + 1, received.length() + 1).toInt();
+      int gnd = received.substring(gnd_indx + 1, received.length() + 1).toInt();
 
       relayMux.setNonInverting(relay, gnd);
     }

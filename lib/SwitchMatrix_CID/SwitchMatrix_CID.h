@@ -1,6 +1,7 @@
 #ifndef SWITCH_MATRIX
 #define SWITCH_MATRIX
 #include "keymap.h"
+#include <Arduino.h>
 
 class SWMTRX
 {
