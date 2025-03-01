@@ -11,8 +11,28 @@
 //          manual digitalWrite() can cause problems when power is supplied
 //        to the relays. At worst, the board or DUT can break.
 //
+//    Keymap:
+//        AC_MODE
+//        DC_MODE 
+//        DUT_1 
+//        DUT_2 
+//        DUT_3 
+//        DUT_4 
+//        I_IN0 
+//        I_IN1 
+//        I_IN2 
+//        I_GND
+//        NI_IN0
+//        NI_IN1
+//        NI_IN2 
+//        NI_GND
+//        OUT_GND
+//        OUT_FEEDBACK
+//        DMM
+//        SCOPE
+//
 //    Commands:
-//        - RLAY [Pin] [1/0] - manually sets a relay
+//        - RLAY [Pin] - manually sets a relay
 //            do not use this command unless you know what you're doing!.
 //            Ex: RLAY A0 1   | sets relay on A0 to HIGH
 //
@@ -66,7 +86,12 @@ void loop()
     }
     else if (command == "RLAY")
     {
-      
+      int relay_indx = received.indexOf(" ");
+      int status_indx = received.lastIndexOf(" ");
+      String relay = received.substring(relay_indx);
+      int status = received.substring(status_indx + 1, received.length() + 1).toInt();
+
+      relayMux.toggleRelay(relay, status);
     }
     else if (command == "DUTS")
     {
