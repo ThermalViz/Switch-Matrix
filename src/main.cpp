@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-//                            
+//
 //    Switch Matrix Board MUX
 //    Developed by CID:
 //        - Joshua Chan
@@ -8,7 +8,7 @@
 //
 //    WARNING!
 //        Do not use digitalwrite() unless YOU KNOW WHAT YOU'RE DOING.
-//        manual digitalWrite() can cause problems when power is supplied
+//          manual digitalWrite() can cause problems when power is supplied
 //        to the relays. At worst, the board or DUT can break.
 //
 //    Commands:
@@ -33,10 +33,9 @@
 //
 //        - ALL0 - Sets all relays OFF.
 //
-//                
+//
 //
 //////////////////////////////////////////////////////////////////////////
-
 
 #include <Arduino.h>
 #include "SwitchMatrix_CID.h"
@@ -68,7 +67,23 @@ void loop()
     else if (command == "DUTS")
     {
       int dut = received.substring(5, 6).toInt();
-      relayMux.setDUT(dut);
+      switch (dut)
+      {
+      case 1:
+        relayMux.setDUT(DUT_1);
+        break;
+      case 2:
+        relayMux.setDUT(DUT_2);
+        break;
+      case 3:
+        relayMux.setDUT(DUT_3);
+        break;
+      case 4:
+        relayMux.setDUT(DUT_4);
+        break;
+      default:
+        break;
+      }
     }
     else if (command == "INVT")
     {
