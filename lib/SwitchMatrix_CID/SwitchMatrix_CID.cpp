@@ -28,37 +28,95 @@ void SWMTRX::begin()
 
 void SWMTRX::setMode(String mode)
 {
-    resetMode();
-    toggleRelay(mode, HIGH);
+    int parsed = key.Parse(mode);
+
+    if (parsed == AC_MODE || parsed == DC_MODE)
+    {
+        resetMode();
+        toggleRelay(mode, HIGH);
+    }
+    else
+    {
+        Serial.println("Invalid Mode: " + mode + " (" + parsed + ")");
+    }
 }
 void SWMTRX::setInverting(String input, bool ground)
 {
-    resetInverting();
-    toggleRelay(input, HIGH);
-    toggleRelay("I_GND", (ground == true ? HIGH : LOW));
+    int parsed = key.Parse(input);
+
+    if (
+        parsed == I_IN0 ||
+        parsed == I_IN1 ||
+        parsed == I_IN2 ||
+        parsed == I_GND)
+    {
+        resetInverting();
+        toggleRelay(input, HIGH);
+        toggleRelay("I_GND", (ground == true ? HIGH : LOW));
+    }
+    else
+    {
+        Serial.println("Invalid Inverting Input: " + input + " (" + parsed + ")");
+    }
 }
 void SWMTRX::setNonInverting(String input, bool ground)
 {
-    resetNonInverting();
-    toggleRelay(input, HIGH);
-    toggleRelay("NI_GND", (ground == true ? HIGH : LOW));
+    int parsed = key.Parse(input);
+
+    if (
+        parsed == NI_IN0 ||
+        parsed == NI_IN1 ||
+        parsed == NI_IN2 ||
+        parsed == NI_GND)
+    {
+        resetNonInverting();
+        toggleRelay(input, HIGH);
+        toggleRelay("NI_GND", (ground == true ? HIGH : LOW));
+    }
+    else
+    {
+        Serial.println("Invalid Non-Inverting Input: " + input + " (" + parsed + ")");
+    }
 }
 
 void SWMTRX::setDUT(String index)
 {
-    resetDUT();
-    toggleRelay(index, HIGH);
+    int parsed = key.Parse(index);
+
+    if (
+        parsed == DUT_1 ||
+        parsed == DUT_2 ||
+        parsed == DUT_3 ||
+        parsed == DUT_4)
+    {
+        resetDUT();
+        toggleRelay(index, HIGH);
+    }
 }
 void SWMTRX::setMeasure(String index)
 {
-    resetMeasure();
-    toggleRelay(index, HIGH);
+    int parsed = key.Parse(index);
+
+    if (
+        parsed == DMM ||
+        parsed == SCOPE)
+    {
+        resetMeasure();
+        toggleRelay(index, HIGH);
+    }
 }
 
 void SWMTRX::setOutput(String output)
 {
-    resetOut();
-    toggleRelay(output, HIGH);
+    int parsed = key.Parse(output);
+
+    if (
+        parsed == OUT_FEEDBACK ||
+        parsed == OUT_GND)
+    {
+        resetOut();
+        toggleRelay(output, HIGH);
+    }
 }
 
 void SWMTRX::toggleRelay(String index, int status)
