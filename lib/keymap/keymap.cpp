@@ -1,7 +1,7 @@
 #include "keymap.h"
 
 int keymap::Parse(String command) {
-    if(command == "AC_MODE") return AC_MODE;
+    if(command == "AC_MODE" || command == "K33" ) return AC_MODE;
     if(command == "DC_MODE") return DC_MODE;
     if(command == "DUT_1") return DUT_1;
     if(command == "DUT_2") return DUT_2;
