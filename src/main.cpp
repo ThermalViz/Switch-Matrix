@@ -117,5 +117,14 @@ void loop()
     {
       relayMux.resetAll();
     }
+    else if (command == "MODE")
+    {
+      String mode = received.substring(5, received.length());
+      relayMux.setMode(mode);
+    }
+    else
+    {
+      Serial.println("Invalid Command");
+    }
   }
 }
