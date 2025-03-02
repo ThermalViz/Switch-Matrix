@@ -14,8 +14,8 @@
 //    Keymap:
 //        DUT_1     I_IN0     NI_IN0      OUT_GND         AC_MODE
 //        DUT_2     I_IN1     NI_IN1      OUT_FEEDBACK    DC_MODE
-//        DUT_3     I_IN2     NI_IN2      DMM 
-//        DUT_4     I_GND     NI_GND      SCOPE      
+//        DUT_3     I_IN2     NI_IN2      DMM
+//        DUT_4     I_GND     NI_GND      SCOPE
 //
 //    Commands:
 //        - RLAY [Key] - manually sets a relay
@@ -26,10 +26,10 @@
 //            Ex: DUTS DUT_1      | sets DUT_1 as the active DUT.
 //
 //        - INVT [Key] [0/1] - Sets the inverting input resistors and if input is GND.
-//            Ex: INVT I_IN1 1 1    | sets the inverting input to the 3rd option and is grounded.
+//            Ex: INVT I_IN1 1     | sets the inverting input to the 3rd option and is grounded.
 //
 //        - NINV [Key] [0/1] - Sets the non-inverting input resistors and if input is GND.
-//            Ex: NINV NI_IN1 1 1    | sets the non-inverting input to the 3rd option and is grounded.
+//            Ex: NINV NI_IN1 1     | sets the non-inverting input to the 3rd option and is grounded.
 //
 //        - VOUT [Key] - Sets the output if to GND or to the feedback resistor.
 //            Ex: VOUT OUT_GND      | sets the output to ground.
@@ -89,7 +89,7 @@ void loop()
     {
       int relay_indx = received.indexOf(" "); 
       int gnd_indx = received.lastIndexOf(" ");
-      String relay = received.substring(relay_indx);
+      String relay = received.substring(relay_indx + 1, gnd_indx);
       int gnd = received.substring(gnd_indx + 1, received.length() + 1).toInt();
 
       relayMux.setInverting(relay, gnd);
@@ -98,7 +98,7 @@ void loop()
     {
       int relay_indx = received.indexOf(" ");
       int gnd_indx = received.lastIndexOf(" ");
-      String relay = received.substring(relay_indx);
+      String relay = received.substring(relay_indx + 1, gnd_indx);
       int gnd = received.substring(gnd_indx + 1, received.length() + 1).toInt();
 
       relayMux.setNonInverting(relay, gnd);
@@ -117,6 +117,14 @@ void loop()
     {
       relayMux.resetAll();
     }
+    else if (command == "MODE")
+    {
+      String mode = received.substring(5, received.length());
+      relayMux.setMode(mode);
+    }
+    else
+    {
+      Serial.println("Invalid Command");
+    }
   }
 }
-

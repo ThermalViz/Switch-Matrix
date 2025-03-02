@@ -9,11 +9,46 @@ Do not use digitalwrite() unless YOU KNOW WHAT YOU'RE DOING.
 manual digitalWrite() can cause problems when power is supplied
 to the relays. At worst, the board or DUT can break.
 
-# Keymap:
-DUT_1     I_IN0     NI_IN0      OUT_GND         AC_MODE
-DUT_2     I_IN1     NI_IN1      OUT_FEEDBACK    DC_MODE
-DUT_3     I_IN2     NI_IN2      DMM 
-DUT_4     I_GND     NI_GND      SCOPE 
+# Keymapping:
+<table>
+<tr>
+  <th>DUT</th>
+  <th>Inverting</th>
+  <th>Non-Inverting</th>
+  <th>Out</th>
+  <th>Mode</th>
+</tr>
+<tr>
+  <td>
+    DUT_1 <br> <br>
+    DUT_2 <br> <br>
+    DUT_3 <br> <br>
+    DUT_4 
+  </td>
+  <td>
+    I_IN0 <br> <br>
+    I_IN1 <br>  <br>
+    I_IN2 <br>  <br>
+    I_GND 
+  </td>
+  <td>
+    NI_IN0 <br> <br>
+    NI_IN1 <br> <br>
+    NI_IN2 <br> <br>
+    NI_GND
+  </td>
+  <td>
+    OUT_GND <br> <br>
+    OUT_FEEDBACK <br> <br>
+    DMM <br> <br>
+    SCOPE
+  </td>
+  <td>
+    AC_MODE <br> <br>
+    DC_MODE
+  </td>
+</tr>
+</table>
 
 # Commands:
 ### RLAY [Key] [1/0]
@@ -27,11 +62,11 @@ Ex: DUTS DUT_1      | sets DUT_1 as the active DUT.
 ### INVT [Key] [0/1] 
 Sets the inverting input resistors and if input is GND.
 
-Ex: INVT I_IN1 1 1    | sets the inverting input to the 3rd option and is grounded.
+Ex: INVT I_IN1 1    | sets the inverting input to the 3rd option and is grounded.
 ### NINV [Key] [0/1]
 Sets the non-inverting input resistors and if input is GND.
 
-Ex: NINV NI_IN1 1 1    | sets the non-inverting input to the 3rd option and is grounded.
+Ex: NINV NI_IN1 1   | sets the non-inverting input to the 3rd option and is grounded.
 ### VOUT [Key]
 Sets the output if to GND or to the feedback resistor.
 
