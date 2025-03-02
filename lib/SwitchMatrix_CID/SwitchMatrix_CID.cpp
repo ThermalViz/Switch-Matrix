@@ -82,6 +82,7 @@ void SWMTRX::setNonInverting(String input, bool ground)
 void SWMTRX::setDUT(String index)
 {
     int parsed = key.Parse(index);
+    Serial.println("Setting DUT to " + String(index));
 
     if (
         parsed == DUT_1 ||
@@ -142,6 +143,7 @@ void SWMTRX::resetInverting()
 }
 void SWMTRX::resetNonInverting()
 {
+    Serial.println("Disconnecting Non-Inverting pins");
     toggleRelay("NI_IN0", LOW);
     toggleRelay("NI_IN1", LOW);
     toggleRelay("NI_IN2", LOW);
@@ -149,6 +151,7 @@ void SWMTRX::resetNonInverting()
 }
 void SWMTRX::resetDUT()
 {
+    Serial.println("Disconnecting DUT pins");
     toggleRelay("DUT_1", LOW);
     toggleRelay("DUT_2", LOW);
     toggleRelay("DUT_3", LOW);
@@ -156,16 +159,19 @@ void SWMTRX::resetDUT()
 }
 void SWMTRX::resetOut()
 {
+    Serial.println("Disconnecting Output");
     toggleRelay("OUT_GND", LOW);
     toggleRelay("OUT_FEEDBACK", LOW);
 }
 void SWMTRX::resetMeasure()
 {
+    Serial.println("Disconnecting DMM and Oscilloscope");
     toggleRelay("DMM", LOW);
     toggleRelay("SCOPE", LOW);
 }
 void SWMTRX::resetInput()
 {
+    Serial.println("Resetting all inputs");
     toggleRelay("AC_MODE", LOW);
     toggleRelay("DC_MODE", LOW);
     toggleRelay("I_GND", LOW);
@@ -174,12 +180,14 @@ void SWMTRX::resetInput()
 
 void SWMTRX::resetMode()
 {
+    Serial.println("Disconnecting Inverting pins");
     toggleRelay("AC_MODE", LOW);
     toggleRelay("DC_MODE", LOW);
 }
 
 void SWMTRX::resetAll()
 {
+    Serial.println("Resetting all relays");
     toggleRelay("AC_MODE", LOW);
     toggleRelay("DC_MODE", LOW);
     toggleRelay("DUT_1", LOW);
