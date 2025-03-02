@@ -14,8 +14,8 @@
 //    Keymap:
 //        DUT_1     I_IN0     NI_IN0      OUT_GND         AC_MODE
 //        DUT_2     I_IN1     NI_IN1      OUT_FEEDBACK    DC_MODE
-//        DUT_3     I_IN2     NI_IN2      DMM 
-//        DUT_4     I_GND     NI_GND      SCOPE      
+//        DUT_3     I_IN2     NI_IN2      DMM
+//        DUT_4     I_GND     NI_GND      SCOPE
 //
 //    Commands:
 //        - RLAY [Key] - manually sets a relay
@@ -89,7 +89,7 @@ void loop()
     {
       int relay_indx = received.indexOf(" ");
       int gnd_indx = received.lastIndexOf(" ");
-      String relay = received.substring(relay_indx);
+      String relay = received.substring(relay_indx + 1, gnd_indx);
       int gnd = received.substring(gnd_indx + 1, received.length() + 1).toInt();
 
       relayMux.setInverting(relay, gnd);
@@ -98,7 +98,7 @@ void loop()
     {
       int relay_indx = received.indexOf(" ");
       int gnd_indx = received.lastIndexOf(" ");
-      String relay = received.substring(relay_indx);
+      String relay = received.substring(relay_indx + 1, gnd_indx);
       int gnd = received.substring(gnd_indx + 1, received.length() + 1).toInt();
 
       relayMux.setNonInverting(relay, gnd);
@@ -119,4 +119,3 @@ void loop()
     }
   }
 }
-
