@@ -26,10 +26,10 @@
 //            Ex: DUTS DUT_1      | sets DUT_1 as the active DUT.
 //
 //        - INVT [Key] [0/1] - Sets the inverting input resistors and if input is GND.
-//            Ex: INVT I_IN1 1 1    | sets the inverting input to the 3rd option and is grounded.
+//            Ex: INVT I_IN1 1     | sets the inverting input to the 3rd option and is grounded.
 //
 //        - NINV [Key] [0/1] - Sets the non-inverting input resistors and if input is GND.
-//            Ex: NINV NI_IN1 1 1    | sets the non-inverting input to the 3rd option and is grounded.
+//            Ex: NINV NI_IN1 1     | sets the non-inverting input to the 3rd option and is grounded.
 //
 //        - VOUT [Key] - Sets the output if to GND or to the feedback resistor.
 //            Ex: VOUT OUT_GND      | sets the output to ground.
