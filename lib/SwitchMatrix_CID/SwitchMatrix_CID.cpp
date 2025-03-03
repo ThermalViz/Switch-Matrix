@@ -137,6 +137,7 @@ void SWMTRX::toggleRelay(String index, int status)
 
 void SWMTRX::resetInverting()
 {
+    Serial.println("Disconnecting Inverting pins");
     toggleRelay("I_IN0", LOW);
     toggleRelay("I_IN1", LOW);
     toggleRelay("I_IN2", LOW);
