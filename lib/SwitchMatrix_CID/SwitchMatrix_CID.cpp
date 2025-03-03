@@ -26,182 +26,185 @@ void SWMTRX::begin()
     resetAll();
 }
 
-void SWMTRX::setMode(int mode)
+void SWMTRX::setMode(String mode)
 {
-    digitalWrite(AC_MODE, (mode == 1 ? HIGH : LOW));
-    digitalWrite(DC_MODE, (mode == 2 ? HIGH : LOW));
+    int parsed = key.Parse(mode);
 
-    if (mode == 0)
-        resetInput();
-}
-void SWMTRX::setInverting(int input, bool ground)
-{
-    resetInverting();
-
-    switch (input)
+    if (parsed == AC_MODE || parsed == DC_MODE)
     {
-    case I_IN0:
-        digitalWrite(I_IN0, HIGH);
-        break;
-    case I_IN1:
-        digitalWrite(I_IN1, HIGH);
-        break;
-    case I_IN2:
-        digitalWrite(I_IN2, HIGH);
-        break;
-    default:
-        break;
+        resetMode();
+        toggleRelay(mode, HIGH);
     }
-
-    digitalWrite(I_GND, (ground == true ? HIGH : LOW));
-}
-void SWMTRX::setNonInverting(int input, bool ground)
-{
-    resetNonInverting();
-
-    switch (input)
+    else
     {
-    case NI_IN0:
-        digitalWrite(NI_IN0, HIGH);
-        break;
-    case NI_IN1:
-        digitalWrite(NI_IN1, HIGH);
-        break;
-    case NI_IN2:
-        digitalWrite(NI_IN2, HIGH);
-        break;
-    default:
-        break;
+        Serial.println("Invalid Mode: " + mode + " (" + parsed + ")");
     }
+}
+void SWMTRX::setInverting(String input, bool ground)
+{
+    int parsed = key.Parse(input);
 
-    digitalWrite(NI_GND, (ground == true ? HIGH : LOW));
+    if (
+        parsed == I_IN0 ||
+        parsed == I_IN1 ||
+        parsed == I_IN2 ||
+        parsed == I_GND)
+    {
+        resetInverting();
+        toggleRelay(input, HIGH);
+        toggleRelay("I_GND", (ground == true ? HIGH : LOW));
+    }
+    else
+    {
+        Serial.println("Invalid Inverting Input: " + input + " (" + parsed + ")");
+    }
+}
+void SWMTRX::setNonInverting(String input, bool ground)
+{
+    int parsed = key.Parse(input);
+
+    if (
+        parsed == NI_IN0 ||
+        parsed == NI_IN1 ||
+        parsed == NI_IN2 ||
+        parsed == NI_GND)
+    {
+        resetNonInverting();
+        toggleRelay(input, HIGH);
+        toggleRelay("NI_GND", (ground == true ? HIGH : LOW));
+    }
+    else
+    {
+        Serial.println("Invalid Non-Inverting Input: " + input + " (" + parsed + ")");
+    }
 }
 
-void SWMTRX::setDUT(int index)
+void SWMTRX::setDUT(String index)
 {
+    int parsed = key.Parse(index);
     Serial.println("Setting DUT to " + String(index));
-    resetDUT();
 
-    switch (index)
+    if (
+        parsed == DUT_1 ||
+        parsed == DUT_2 ||
+        parsed == DUT_3 ||
+        parsed == DUT_4)
     {
-    case DUT_1:
-        digitalWrite(DUT_1, HIGH);
-        break;
-    case DUT_2:
-        digitalWrite(DUT_2, HIGH);
-        break;
-    case DUT_3:
-        digitalWrite(DUT_3, HIGH);
-        break;
-    case DUT_4:
-        digitalWrite(DUT_4, HIGH);
-        break;
-    default:
-        break;
+        resetDUT();
+        toggleRelay(index, HIGH);
     }
 }
-void SWMTRX::setMeasure(int index)
+void SWMTRX::setMeasure(String index)
 {
-    resetMeasure();
+    int parsed = key.Parse(index);
 
-    switch (index)
+    if (
+        parsed == DMM ||
+        parsed == SCOPE)
     {
-    case DMM:
-        digitalWrite(DMM, HIGH);
-        break;
-    case SCOPE:
-        digitalWrite(SCOPE, HIGH);
-        break;
-    default:
-        break;
+        resetMeasure();
+        toggleRelay(index, HIGH);
     }
 }
 
-void SWMTRX::setOutput(int output)
+void SWMTRX::setOutput(String output)
 {
-    resetOut();
-    switch (output)
+    int parsed = key.Parse(output);
+
+    if (
+        parsed == OUT_FEEDBACK ||
+        parsed == OUT_GND)
     {
-    case OUT_GND:
-        digitalWrite(OUT_GND, HIGH);
-        break;
-    case OUT_FEEDBACK:
-        digitalWrite(OUT_FEEDBACK, HIGH);
-        break;
-    default:
-        break;
+        resetOut();
+        toggleRelay(output, HIGH);
     }
 }
 
-void SWMTRX::toggleRelay(int index, int status)
+void SWMTRX::toggleRelay(String index, int status)
 {
-    digitalWrite(index, status);
-    Serial.println("Relay " + String(index) + " toggled to " + String(status));
+    int parsed = key.Parse(index);
+
+    if (parsed != 0)
+    {
+        digitalWrite(parsed, status);
+        Serial.println("Relay " + String(parsed) + " toggled to " + String(status));
+    }
+    else
+    {
+        Serial.println("Invalid Relay: " + index + " (" + parsed + ")");
+    }
 }
 
 void SWMTRX::resetInverting()
 {
     Serial.println("Disconnecting Inverting pins");
-    digitalWrite(I_IN0, LOW);
-    digitalWrite(I_IN1, LOW);
-    digitalWrite(I_IN2, LOW);
+    toggleRelay("I_IN0", LOW);
+    toggleRelay("I_IN1", LOW);
+    toggleRelay("I_IN2", LOW);
 }
 void SWMTRX::resetNonInverting()
 {
     Serial.println("Disconnecting Non-Inverting pins");
-    digitalWrite(NI_IN0, LOW);
-    digitalWrite(NI_IN1, LOW);
-    digitalWrite(NI_IN2, LOW);
-    digitalWrite(NI_GND, LOW);
+    toggleRelay("NI_IN0", LOW);
+    toggleRelay("NI_IN1", LOW);
+    toggleRelay("NI_IN2", LOW);
+    toggleRelay("NI_GND", LOW);
 }
 void SWMTRX::resetDUT()
 {
     Serial.println("Disconnecting DUT pins");
-    digitalWrite(DUT_1, LOW);
-    digitalWrite(DUT_2, LOW);
-    digitalWrite(DUT_3, LOW);
-    digitalWrite(DUT_4, LOW);
+    toggleRelay("DUT_1", LOW);
+    toggleRelay("DUT_2", LOW);
+    toggleRelay("DUT_3", LOW);
+    toggleRelay("DUT_4", LOW);
 }
 void SWMTRX::resetOut()
 {
     Serial.println("Disconnecting Output");
-    digitalWrite(OUT_GND, LOW);
-    digitalWrite(OUT_FEEDBACK, LOW);
+    toggleRelay("OUT_GND", LOW);
+    toggleRelay("OUT_FEEDBACK", LOW);
 }
 void SWMTRX::resetMeasure()
 {
     Serial.println("Disconnecting DMM and Oscilloscope");
-    digitalWrite(DMM, LOW);
-    digitalWrite(SCOPE, LOW);
+    toggleRelay("DMM", LOW);
+    toggleRelay("SCOPE", LOW);
 }
 void SWMTRX::resetInput()
 {
     Serial.println("Resetting all inputs");
-    digitalWrite(AC_MODE, LOW);
-    digitalWrite(DC_MODE, LOW);
-    digitalWrite(I_GND, LOW);
-    digitalWrite(I_GND, LOW);
+    toggleRelay("AC_MODE", LOW);
+    toggleRelay("DC_MODE", LOW);
+    toggleRelay("I_GND", LOW);
+    toggleRelay("I_GND", LOW);
+}
+
+void SWMTRX::resetMode()
+{
+    Serial.println("Disconnecting Inverting pins");
+    toggleRelay("AC_MODE", LOW);
+    toggleRelay("DC_MODE", LOW);
 }
 
 void SWMTRX::resetAll()
 {
     Serial.println("Resetting all relays");
-    digitalWrite(AC_MODE, LOW);
-    digitalWrite(DC_MODE, LOW);
-    digitalWrite(DUT_1, LOW);
-    digitalWrite(DUT_2, LOW);
-    digitalWrite(DUT_3, LOW);
-    digitalWrite(DUT_4, LOW);
-    digitalWrite(I_IN0, LOW);
-    digitalWrite(I_IN1, LOW);
-    digitalWrite(I_IN2, LOW);
-    digitalWrite(I_GND, LOW);
-    digitalWrite(NI_IN0, LOW);
-    digitalWrite(NI_IN1, LOW);
-    digitalWrite(NI_IN2, LOW);
-    digitalWrite(NI_GND, LOW);
-    digitalWrite(OUT_GND, LOW);
-    digitalWrite(OUT_FEEDBACK, LOW);
-    digitalWrite(DMM, LOW);
-    digitalWrite(SCOPE, LOW);
+    toggleRelay("AC_MODE", LOW);
+    toggleRelay("DC_MODE", LOW);
+    toggleRelay("DUT_1", LOW);
+    toggleRelay("DUT_2", LOW);
+    toggleRelay("DUT_3", LOW);
+    toggleRelay("DUT_4", LOW);
+    toggleRelay("I_IN0", LOW);
+    toggleRelay("I_IN1", LOW);
+    toggleRelay("I_IN2", LOW);
+    toggleRelay("I_GND", LOW);
+    toggleRelay("NI_IN0", LOW);
+    toggleRelay("NI_IN1", LOW);
+    toggleRelay("NI_IN2", LOW);
+    toggleRelay("NI_GND", LOW);
+    toggleRelay("OUT_GND", LOW);
+    toggleRelay("OUT_FEEDBACK", LOW);
+    toggleRelay("DMM", LOW);
+    toggleRelay("SCOPE", LOW);
 }
