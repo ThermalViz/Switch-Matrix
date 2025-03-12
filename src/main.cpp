@@ -87,7 +87,7 @@ void loop()
     }
     else if (command == "INVT")
     {
-      int relay_indx = received.indexOf(" "); 
+      int relay_indx = received.indexOf(" ");
       int gnd_indx = received.lastIndexOf(" ");
       String relay = received.substring(relay_indx + 1, gnd_indx);
       int gnd = received.substring(gnd_indx + 1, received.length() + 1).toInt();

@@ -27,12 +27,34 @@
 #define DMM 10
 #define SCOPE 14
 
+// Relay Mappings
+#define K2 6
+#define K4 5
+#define K6 7
+
+#define K11 A5
+#define K3 AC_MODE
+#define K36 DC_MODE
+
+#define K8 11
+#define K10 12
+#define K13 13
+
+#define K35 DC_MODE
+#define K14 AC_MODE
+#define K1 A3
+
+#define K5 8
+#define K7 9
+#define K9 10
+#define K12 A0
+
 class keymap
 {
 public:
     int Parse(String command);
-private:
 
+private:
 };
 
 #endif
